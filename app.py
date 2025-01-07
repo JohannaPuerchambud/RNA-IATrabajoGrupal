@@ -1,3 +1,7 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
+
 from flask import Flask, request, render_template
 from tensorflow.keras.models import load_model
 import numpy as np
@@ -39,7 +43,8 @@ def predict():
         return render_template('index.html', error_text=f'Error: {str(e)}')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 
